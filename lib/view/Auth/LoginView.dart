@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../modelView/Auth/login_controller.dart';
@@ -7,7 +6,6 @@ import '../../res/components/custom_button.dart';
 import '../../res/components/custom_text_from_field.dart';
 import 'package:provider/provider.dart';
 import 'package:meettown/view/BottomNavbar/BottomNavbar.dart';
-
 
 class LoginView extends StatelessWidget {
   const LoginView({
@@ -20,10 +18,7 @@ class LoginView extends StatelessWidget {
     return Scaffold(
       body: Consumer<LoginController>(
         builder: (context, value, child) => Container(
-         decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage('assets/imgs/log-regis-bg.jpg'),
-                fit: BoxFit.cover)),
+          decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/imgs/log-regis-bg.jpg'), fit: BoxFit.cover)),
           width: size.width * .98,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
@@ -40,13 +35,11 @@ class LoginView extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                CustomTextInputField(
-                    title: 'Enter Email Address', controller: value.email),
+                CustomTextInputField(title: 'Enter Email Address', controller: value.email),
                 const SizedBox(
                   height: 10,
                 ),
-                CustomTextInputPasswordField1(
-                    title: 'Password', controller: value.password),
+                CustomTextInputPasswordField1(title: 'Password', controller: value.password),
                 const SizedBox(
                   height: 10,
                 ),
@@ -61,42 +54,44 @@ class LoginView extends StatelessWidget {
                               onChanged: (v) {
                                 value.setCheckboxValue(v);
                               }),
-                          Text('Remember me',style: TextStyle(color: Colors.white),)
+                          Text(
+                            'Remember me',
+                            style: TextStyle(color: Colors.white),
+                          )
                         ],
                       ),
                     ),
                     Text(
                       'Forget Password?',
-                      style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                          fontSize: 12, color: appColors.textBlueColor),
+                      style: Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 12, color: appColors.textBlueColor),
                     )
                   ],
                 ),
                 SizedBox(
                   height: 10,
                 ),
-                value.loading ?
-                CircularProgressIndicator()
-                    :
-                CustomButtonWidget(
-                    width: size.width * .95,
-                    heigth: 50,
-                    title: 'SIGN IN',
-                    foregroundColor: appColors.buttonTextSelectedPrimaryColor,
-                    bgColor: appColors.textBlueColor,
-                    selectedFgButtonColor: appColors.buttonTextPrimaryColor,
-                    onpress: () {
-//                             Navigator.pushAndRemoveUntil(
-//   context,
-//   MaterialPageRoute(builder: (_) => CustomNavbar()),
-//   (route) => false, // This removes all the previous routes
-// );
-                      value.loginUser(context,value.email.text,value.password.text);
-                    }),
+                value.loading
+                    ? CircularProgressIndicator(
+                        color: Colors.white,
+                      )
+                    : CustomButtonWidget(
+                        width: size.width * .95,
+                        heigth: 50,
+                        title: 'SIGN IN',
+                        foregroundColor: appColors.buttonTextSelectedPrimaryColor,
+                        bgColor: appColors.textBlueColor,
+                        selectedFgButtonColor: appColors.buttonTextPrimaryColor,
+                        onpress: () {
+//
+                          value.loginUser(context, value.email.text, value.password.text);
+                        }),
                 SizedBox(
                   height: 10,
                 ),
-                Text('Or Login With',style: TextStyle(color: Colors.white),),
+                Text(
+                  'Or Login With',
+                  style: TextStyle(color: Colors.white),
+                ),
                 SizedBox(
                   height: 10,
                 ),

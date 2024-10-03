@@ -51,10 +51,13 @@ class _SearchUserPageState extends State<SearchUserPage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 6,
+      length: 4,
       child: Scaffold(
         appBar: PreferredSize(
-            preferredSize: Size(double.infinity, 60), child: CustomAppBar(title: 'Search',)),
+            preferredSize: Size(double.infinity, 60),
+            child: CustomAppBar(
+              title: 'Search',
+            )),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -73,13 +76,7 @@ class _SearchUserPageState extends State<SearchUserPage> {
                   labelColor: Colors.black,
                   indicator: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.white,
-                          blurRadius: 5,
-                          spreadRadius: 5,
-                          offset: Offset(3, 0))
-                    ],
+                    boxShadow: [BoxShadow(color: Colors.white, blurRadius: 5, spreadRadius: 5, offset: Offset(3, 0))],
                     color: Colors.white,
                   ),
                   tabs: [
@@ -104,20 +101,6 @@ class _SearchUserPageState extends State<SearchUserPage> {
                       ),
                     ),
                     Tab(
-                      icon: Icon(
-                        Icons.group_outlined,
-                        color: Colors.green,
-                        size: 30,
-                      ),
-                    ),
-                    Tab(
-                      icon: Icon(
-                        Icons.airplane_ticket,
-                        color: Colors.yellow,
-                        size: 30,
-                      ),
-                    ),
-                    Tab(
                         icon: FaIcon(
                       FontAwesomeIcons.mapLocation,
                       size: 30,
@@ -125,15 +108,15 @@ class _SearchUserPageState extends State<SearchUserPage> {
                     )),
                   ]),
             ),
-                     Expanded(
+            Expanded(
                 child: TabBarView(
               children: [
                 LocationView(),
                 SwipeExample(),
                 ShareView(),
-                PersonView(),
-                TripSearchView(),
-              CurrentLocationView(),
+                // PersonView(),
+                // TripSearchView(),
+                CurrentLocationView(),
               ],
             )),
           ],

@@ -1,14 +1,15 @@
-import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:meettown/model/login_model.dart'; // Import your LoginResponse model
 
-import '../model/login_model.dart';
+class UserDataController extends GetxController {
+  // Making _loginResponse reactive using Rxn<LoginResponse> (nullable)
+  var loginResponse = Rxn<LoginResponse>();
 
-class UserDataProvider extends ChangeNotifier {
-  LoginResponse? _loginResponse;
+  // Getter for loginResponse (not strictly needed but can be used for access)
+  LoginResponse? get getLoginResponse => loginResponse.value;
 
-  LoginResponse? get loginResponse => _loginResponse;
-
+  // Method to update loginResponse
   void setLoginResponse(LoginResponse response) {
-    _loginResponse = response;
-    notifyListeners();
+    loginResponse.value = response;
   }
 }

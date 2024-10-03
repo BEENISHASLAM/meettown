@@ -21,10 +21,8 @@ import 'modelView/Filter/location_controller.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-   await Firebase.initializeApp();
-  runApp(GetMaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: const MyApp()));
+  await Firebase.initializeApp();
+  runApp(GetMaterialApp(debugShowCheckedModeBanner: false, home: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -43,12 +41,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => CompletedProfileController()),
         ChangeNotifierProvider(create: (_) => ContactModel()),
         ChangeNotifierProvider(create: (_) => OTpController()),
-        ChangeNotifierProvider(create: (_) => UserDataProvider()),
-        ChangeNotifierProvider(create: (_) => LocationController()),
         ChangeNotifierProvider(create: (_) => SearchUserByInterestController()),
         ChangeNotifierProvider(create: (_) => CardSwipeController()),
-
-
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -63,39 +57,28 @@ class MyApp extends StatelessWidget {
             foregroundColor: appColors.textPrimaryColor,
             iconTheme: IconThemeData(color: appColors.iconPrimaryColor),
           ),
-          textTheme:  TextTheme(
+          textTheme: TextTheme(
             labelLarge: TextStyle(color: Colors.white),
-            displayLarge: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                color: appColors.textSecondaryColor), // Example headline1 style
-            displayMedium: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-                color: appColors.textBlueColor), // Example headline1 style
+            displayLarge: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: appColors.textSecondaryColor), // Example headline1 style
+            displayMedium: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: appColors.textBlueColor), // Example headline1 style
             // bodyText1: TextStyle(
             //     fontSize: 16, color: Colors.black87), // Default text color
           ),
           iconTheme: IconThemeData(color: appColors.buttonTextPrimaryColor),
           inputDecorationTheme: InputDecorationTheme(
             contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-            labelStyle:
-                const TextStyle(color: appColors.primaryInputFieldBorder),
+            labelStyle: const TextStyle(color: appColors.primaryInputFieldBorder),
             // Define your TextInputField style here
             enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(
-                  color: appColors.primaryInputFieldBorder), // Border color
+              borderSide: const BorderSide(color: appColors.primaryInputFieldBorder), // Border color
               borderRadius: BorderRadius.circular(30.0), // Border radius
             ),
             border: OutlineInputBorder(
-              borderSide: const BorderSide(
-                  color: appColors.primaryInputFieldBorder), // Border color
+              borderSide: const BorderSide(color: appColors.primaryInputFieldBorder), // Border color
               borderRadius: BorderRadius.circular(30.0), // Border radius
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(
-                  color: appColors
-                      .primaryInputFieldBorder), // Focused border color
+              borderSide: const BorderSide(color: appColors.primaryInputFieldBorder), // Focused border color
               borderRadius: BorderRadius.circular(30.0), // Border radius
             ),
             // You can define more styles here as needed

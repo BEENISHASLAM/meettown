@@ -41,7 +41,6 @@ class UserData {
   final String id;
   final String firstName;
   final String lastName;
-  final int age;
   final String? gender;
   final String email;
   final String role;
@@ -56,7 +55,6 @@ class UserData {
     required this.id,
     required this.firstName,
     required this.lastName,
-    required this.age,
     this.gender,
     required this.email,
     required this.role,
@@ -73,7 +71,6 @@ class UserData {
       id: json['_id'],
       firstName: json['firstName'],
       lastName: json['lastName'],
-      age: json['age'],
       gender: json['gender'],
       email: json['email'],
       role: json['role'],
@@ -149,7 +146,6 @@ class Location {
       coordinates: (json['coordinates'] as List<dynamic>).map((e) => (e as num).toDouble()).toList(),
     );
   }
-
 }
 
 class ProfileImage {

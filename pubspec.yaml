@@ -59,6 +59,7 @@ dependencies:
   flutter_card_swiper: ^7.0.1
   palette_generator: ^0.3.3+3
   http:
+  skeletonizer: ^1.4.2
 
 dev_dependencies:
   flutter_test:

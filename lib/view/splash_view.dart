@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meettown/view/app_intro_view/app_intro_view.dart';
 
-
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
 
@@ -10,12 +9,12 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
- double opacityLevel = 0.0;
+  double opacityLevel = 0.0;
 //  var controller = Get.put(SplashController());
 
   double _scale = 0.0;
 
-   @override
+  @override
   void initState() {
     super.initState();
     changeOpacity();
@@ -32,26 +31,17 @@ class _SplashViewState extends State<SplashView> {
         changeOpacity();
       });
     } else {
-       Navigator.push(
-            context, MaterialPageRoute(builder: (context) => AppIntroView()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => AppIntroView()));
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    // Provider.of<SplashController>(context, listen: false)
-    //     .splashService(context);
     return Scaffold(
-      // backgroundColor: Color.fromARGB(255, 238, 240, 240),
       body: Container(
-         decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage('assets/imgs/log-regis-bg.jpg'),
-                fit: BoxFit.cover)),
+        decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/imgs/log-regis-bg.jpg'), fit: BoxFit.cover)),
         child: Center(
-          child: Transform.scale(
-            scale: _scale,
-            child: Image.network('https://www.meetown.com/public/media-storage/logo/logo-light.png?ver=')),
+          child: Transform.scale(scale: _scale, child: Image.network('https://www.meetown.com/public/media-storage/logo/logo-light.png?ver=')),
         ),
       ),
     );

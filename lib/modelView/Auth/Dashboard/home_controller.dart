@@ -19,8 +19,8 @@ class HomeController extends GetxController {
   File? imageFile;
   var loading = false;
   var _currentAddress;
-  var postData =[];
-  var userPostUpdate=[];
+  var postData = [];
+  var userPostUpdate = [];
   final TextEditingController postController = TextEditingController();
 
   setLoading(val) {
@@ -28,37 +28,36 @@ class HomeController extends GetxController {
     update();
   }
 
-  setPost(val,postUser){
-    userPostUpdate=postUser;
-    postData=val;
-        update();
-
+  setPost(val, postUser) {
+    userPostUpdate = postUser;
+    postData = val;
+    update();
   }
 
   Future<void> getPostWithEarliestTimestamp() async {
-    DatabaseReference ref = FirebaseDatabase.instance.ref("posts");
+    //   DatabaseReference ref = FirebaseDatabase.instance.ref("posts");
 
-  DataSnapshot snapshot = await ref.get();
-  if (snapshot.value != null) {
-      Map<dynamic, dynamic> data = snapshot.value as Map<dynamic, dynamic>;
-    List<dynamic> values = data.values.toList();
-    print(values);
-    var postUserSet = <String>{}; // Set to store user IDs
-  var postUserList = []; // List to store filtered posts
+    // DataSnapshot snapshot = await ref.get();
+    // if (snapshot.value != null) {
+    //     Map<dynamic, dynamic> data = snapshot.value as Map<dynamic, dynamic>;
+    //   List<dynamic> values = data.values.toList();
+    //   print(values);
+    //   var postUserSet = <String>{}; // Set to store user IDs
+    // var postUserList = []; // List to store filtered posts
 
-  for (var i = 0; i < values.length; i++) {
-    if (!postUserSet.contains(values[i]['userId'])) {
-      postUserSet.add(values[i]['userId']); // Add userId to the set
-      postUserList.add(values[i]); // Add post to the list
-    }
-  }
-    print(postUserList);
+    // for (var i = 0; i < values.length; i++) {
+    //   if (!postUserSet.contains(values[i]['userId'])) {
+    //     postUserSet.add(values[i]['userId']); // Add userId to the set
+    //     postUserList.add(values[i]); // Add post to the list
+    //   }
+    // }
+    //   print(postUserList);
 
-    setPost(values,postUserList);
+    //   setPost(values,postUserList);
 
-  } else {
-    print('No data available.');
-  }
+    // } else {
+    //   print('No data available.');
+    // }
     // setPost(event.value);
   }
 
@@ -68,16 +67,13 @@ class HomeController extends GetxController {
 
     String imageUrl = '';
     if (imageFile != null) {
-      final storageRef = FirebaseStorage.instance
-          .ref()
-          .child('posts/${DateTime.now().toIso8601String()}');
+      final storageRef = FirebaseStorage.instance.ref().child('posts/${DateTime.now().toIso8601String()}');
       final uploadTask = storageRef.putFile(imageFile);
       final snapshot = await uploadTask;
       imageUrl = await snapshot.ref.getDownloadURL();
     }
 
-    DatabaseReference databaseReference =
-        FirebaseDatabase.instance.ref('posts');
+    DatabaseReference databaseReference = FirebaseDatabase.instance.ref('posts');
     var ref = databaseReference.push();
     await ref.set({
       "userId": UserId,
@@ -114,21 +110,17 @@ class HomeController extends GetxController {
 
   Future<void> getCurrentLocation() async {
     try {
-      Position position = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high);
-      List<Placemark> placemarks =
-          await placemarkFromCoordinates(position.latitude, position.longitude);
+      Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+      List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
       Placemark place = placemarks[0];
 
       _currentAddress = "${place.locality}, ${place.country}";
-          update();
+      update();
       return _currentAddress;
     } catch (e) {
       print(e);
     }
   }
-
-
 
   Future<void> showUploadDialog(BuildContext context) async {
     return showDialog<void>(
@@ -147,12 +139,10 @@ class HomeController extends GetxController {
                 SizedBox(height: 10),
                 ElevatedButton(
                   onPressed: () async {
-                    final pickedFile = await ImagePicker()
-                        .pickImage(source: ImageSource.gallery);
+                    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
                     if (pickedFile != null) {
                       imageFile = File(pickedFile.path);
-                          update();
-
+                      update();
                     }
                   },
                   child: Text('Upload Image'),
@@ -174,7 +164,7 @@ class HomeController extends GetxController {
                 if (postController.text.isNotEmpty || imageFile != null) {
                   setLoading(true);
                   // await uploadPost(context, postController.text, imageFile);
-                   await uploadPostNew (context, postController.text, imageFile);
+                  await uploadPostNew(context, postController.text, imageFile);
                   Navigator.of(context).pop();
                 }
               },
@@ -184,27 +174,23 @@ class HomeController extends GetxController {
       },
     );
   }
+
   Future<void> uploadPostNew(BuildContext context, String? text, File? imageFile) async {
     final token = await prefs.getToken();
     print(token);
 
-    var headers = {
-      'token': '$token'
-    };
+    var headers = {'token': '$token'};
 
-    var request = http.MultipartRequest('POST', Uri.parse(
-        'https://meet-town-3f191b8f46d2.herokuapp.com/api/post/create-post'));
+    var request = http.MultipartRequest('POST', Uri.parse('https://meet-town-3f191b8f46d2.herokuapp.com/api/post/create-post'));
 
     // Validate that text is not null or empty
-
 
     // Add text to the request
     request.fields['title'] = text!;
 
     // Only add the image file if it's not null
     if (imageFile != null) {
-      request.files.add(
-          await http.MultipartFile.fromPath('postMedia', imageFile.path));
+      request.files.add(await http.MultipartFile.fromPath('postMedia', imageFile.path));
     } else {
       print("No image file provided.");
     }
@@ -243,12 +229,8 @@ class HomeController extends GetxController {
     }
   }
 
-
   Future<void> saveID(String userId) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('user_id', userId);
   }
-
 }
-
-

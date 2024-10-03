@@ -39,33 +39,33 @@ class Data {
   User? user;
   String? distanceKm;
   String? relationShip;
+  String? about;
 
-  Data({
-    this.sId,
-    this.language,
-    this.professional,
-    this.nationality,
-    this.education,
-    this.profileImage,
-    this.address,
-    this.post,
-    this.createdAt,
-    this.updatedAt,
-    this.friends,
-    this.user,
-    this.distanceKm,
-    this.relationShip,
-  });
+  Data(
+      {this.sId,
+      this.language,
+      this.professional,
+      this.nationality,
+      this.education,
+      this.profileImage,
+      this.address,
+      this.post,
+      this.createdAt,
+      this.updatedAt,
+      this.friends,
+      this.user,
+      this.distanceKm,
+      this.relationShip,
+      this.about});
 
   Data.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
+    about = json["about"];
     language = json['language'];
     professional = json['professional'];
     nationality = json['nationality'];
     education = json['education'];
-    profileImage = json['profileImage'] != null
-        ? ProfileImage.fromJson(json['profileImage'])
-        : null;
+    profileImage = json['profileImage'] != null ? ProfileImage.fromJson(json['profileImage']) : null;
     address = json['address'];
 
     // Safe initialization of lists
