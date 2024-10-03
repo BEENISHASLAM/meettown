@@ -88,6 +88,7 @@ class SignUpView extends StatelessWidget {
                 Row(
                   children: [
                     ChooseGenderWidget(
+
                       onpress: (v) {
                         value.SelectedGenderValue(v);
                       },
@@ -201,7 +202,7 @@ class SignUpView extends StatelessWidget {
                   height: 20,
                 ),
               value.loading ? 
-              CircularProgressIndicator()
+              CircularProgressIndicator(color: Colors.white,)
               :
                 CustomButtonWidget(
                     width: size.width * .95,
@@ -294,12 +295,17 @@ class ChooseGenderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: DropdownButtonFormField2<String>(
+      child: DropdownButtonFormField<String>(
+      
         isExpanded: true,
         decoration: InputDecoration(
+          fillColor: Colors.white,
+          
           // Add Horizontal padding using menuItemStyleData.padding so it matches
           // the menu padding when button's width is not specified.
-          contentPadding: const EdgeInsets.symmetric(vertical: 16),
+          contentPadding:
+                        EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
+
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30),
           ),
@@ -315,16 +321,21 @@ class ChooseGenderWidget extends StatelessWidget {
                   child: Text(
                     item,
                     style: const TextStyle(
-                        fontSize: 14, color: Color.fromARGB(255, 15, 15, 15)),
+                        fontSize: 14, color: Color.fromARGB(255, 250, 245, 245)),
                   ),
-                ))
+                ),
+                
+                )
             .toList(),
+             dropdownColor: Color(0xff5a584b),
         validator: (value) {
           if (value == null) {
             return 'Please select gender.';
           }
           return null;
         },
+        
+        style: const TextStyle(color: Colors.white),
         onChanged: (value) {
           //Do something when selected item is changed.
           onpress(value);
@@ -332,24 +343,7 @@ class ChooseGenderWidget extends StatelessWidget {
         onSaved: (value) {
           onpress(value);
         },
-        buttonStyleData: const ButtonStyleData(
-          padding: EdgeInsets.only(right: 8),
-        ),
-        iconStyleData: const IconStyleData(
-          icon: Icon(
-            Icons.arrow_drop_down,
-            color: Colors.white,
-          ),
-          iconSize: 24,
-        ),
-        dropdownStyleData: DropdownStyleData(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-          ),
-        ),
-        menuItemStyleData: const MenuItemStyleData(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-        ),
+       
       ),
     );
   }

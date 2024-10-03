@@ -32,7 +32,7 @@ class _UserAboutViewState extends State<UserAboutView> {
       padding: EdgeInsets.all(16.0),
       child: Obx(() {
         return userController.isLoading.value
-            ? Text("ok")
+            ? SizedBox.shrink()
             : Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

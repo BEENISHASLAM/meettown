@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:meettown/modelView/api_url/api_url.dart';
 import 'package:meettown/res/global.dart';
 import 'package:meettown/view/Auth/completed_profile.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -128,7 +129,7 @@ class SignUpController extends ChangeNotifier {
       'password': password1,
     };
 
-    final url = Uri.parse('https://meet-town-3f191b8f46d2.herokuapp.com/api/auth/register'); // Replace with your API endpoint
+    final url = Uri.parse('${ApiUrl.baseUrl}/auth/register'); // Replace with your API endpoint
 
     try {
       setLoading(true);

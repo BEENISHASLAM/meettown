@@ -6,9 +6,9 @@ import 'package:meettown/Controller/getUserController.dart';
 import 'package:meettown/modelView/api_url/api_url.dart';
 import 'package:meettown/res/appcolors.dart';
 import 'package:meettown/view/SearchUser/search_view/location_view/user_about_view.dart';
+import 'package:meettown/view/SearchUser/search_view/location_view/user_photo_iew.dart';
 import 'package:meettown/view/profile_view/activities_view/activities_view.dart';
 import 'package:meettown/view/profile_view/own_trip_view/own_trip_view.dart';
-import 'package:meettown/view/profile_view/photo_view/photo_view.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class UserProfileView extends StatefulWidget {
@@ -71,18 +71,13 @@ class _UserProfileViewState extends State<UserProfileView> {
                           ),
                         ),
                         Text(
-                          "Profile",
+                          "User Profile",
                           style: TextStyle(color: Colors.white, fontSize: 20),
                         ),
                         CircleAvatar(
                           radius: 20,
-                          backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-                          child: IconButton(
-                            onPressed: () {
-                              // Add your navigation to settings here
-                            },
-                            icon: Icon(Icons.settings, size: 25, color: appColors.textBlueColor),
-                          ),
+                          backgroundColor:  Colors.transparent,
+                        
                         ),
                       ],
                     ),
@@ -246,7 +241,7 @@ class _UserProfileViewState extends State<UserProfileView> {
                   Expanded(
                       child: TabBarView(children: [
                     UserAboutView(),
-                    PhotoView(),
+                    UserPhotoView(),
                     OwnTripView(),
                     ActivitiesView(),
                   ]))

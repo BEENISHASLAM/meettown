@@ -29,20 +29,24 @@ class OtpView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Container(
-                height: 200,
+                height: 100,
                 child: Column(
                   children: [
                     Image.asset(
                       'assets/imgs/appbarLogo.png',
                       height: 80,
                     ),
-                    Text(
-                      'OTP',
-                      style: Theme.of(context).textTheme.displayMedium!.copyWith(color: Colors.white),
-                    ),
+                    SizedBox(height: 20,),
+                   
                   ],
                 ),
               ),
+               Container(
+                      child: Text(
+                        'Verify User',
+                        style: TextStyle(color: Colors.white,fontSize: 25),
+                      ),
+                    ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(6, (index) {
@@ -56,6 +60,8 @@ class OtpView extends StatelessWidget {
                       textAlign: TextAlign.center,
                       maxLength: 1,
                       decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
                         counterText: '',
                         border: OutlineInputBorder(),
                       ),
@@ -76,12 +82,12 @@ class OtpView extends StatelessWidget {
                 }),
               ),
               value.loading ?
-              CircularProgressIndicator()
+              CircularProgressIndicator(color: Colors.white,)
                   :
               CustomButtonWidget(
                   width: size.width * .95,
                   heigth: 50,
-                  title: 'OTP',
+                  title: 'Verify Otp',
                   foregroundColor: appColors.buttonTextSelectedPrimaryColor,
                   bgColor: appColors.textBlueColor,
                   selectedFgButtonColor: appColors.buttonTextPrimaryColor,
