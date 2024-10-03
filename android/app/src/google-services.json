@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "64102095039",
+    "firebase_url": "https://jonnyavest-68eef-default-rtdb.firebaseio.com",
+    "project_id": "jonnyavest-68eef",
+    "storage_bucket": "jonnyavest-68eef.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:64102095039:android:1b14e9ec15dd6cadcd4e0a",
+        "android_client_info": {
+          "package_name": "com.example.meettown"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAg-hVQgt6DjPoKVnsCoOxEpo26BGR94S8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
