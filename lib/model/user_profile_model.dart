@@ -40,7 +40,7 @@ class Data {
   String? createdAt;
   String? updatedAt;
   Location? location; // New Location class
-
+ String? lookingFor;
   Data({
     this.sId,
     this.language,
@@ -61,6 +61,7 @@ class Data {
     this.createdAt,
     this.updatedAt,
     this.location,
+    this.lookingFor
   });
 
   Data.fromJson(Map<String, dynamic> json) {
@@ -83,6 +84,7 @@ class Data {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     location = json['location'] != null ? Location.fromJson(json['location']) : null; // New parsing for Location
+    lookingFor = json['lookingFor'] != null ?  json['lookingFor']:"";
   }
 
   Map<String, dynamic> toJson() {
@@ -109,6 +111,7 @@ class Data {
     json['friends'] = friends;
     json['createdAt'] = createdAt;
     json['updatedAt'] = updatedAt;
+    json["lookingFor"]=lookingFor;
     if (location != null) {
       json['location'] = location!.toJson(); // Serialize Location
     }

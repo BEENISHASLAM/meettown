@@ -32,7 +32,7 @@ class _UserProfileViewState extends State<UserProfileView> {
 
   getUserProfile() async {
     await userController.fetchUserProfileDetails(widget.profile.sId);
-    // print(userController.userProfiles.first);
+
   }
 
   @override
@@ -169,7 +169,7 @@ class _UserProfileViewState extends State<UserProfileView> {
                                   children: [
                                     Text(
                                       // widget.name == null ||widget.name=="" ?  "Samantha Doe":widget.name,
-                                      widget.profile.user.firstName.toString(),
+                                      userController.userProfiles.value.first.authId.firstName.toString(),
                                       style: TextStyle(
                                         fontSize: 24,
                                         fontWeight: FontWeight.bold,

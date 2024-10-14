@@ -38,7 +38,7 @@ class _DashboardState extends State<Dashboard> {
         appBar: PreferredSize(
             preferredSize: Size(double.infinity, 60),
             child: CustomImageAppBar(
-              image: 'https://www.meetown.com/public/imgs/logo.png?VER=2574fe7d88989cfcaf296731730b8a6e',
+              image1: 'https://www.meetown.com/public/imgs/logo.png?VER=2574fe7d88989cfcaf296731730b8a6e',
             )),
         body: GetBuilder<HomeController>(builder: (controller) {
           return SingleChildScrollView(

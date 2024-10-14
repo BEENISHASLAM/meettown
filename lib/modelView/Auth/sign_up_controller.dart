@@ -129,7 +129,7 @@ class SignUpController extends ChangeNotifier {
       'password': password1,
     };
 
-    final url = Uri.parse('${ApiUrl.baseUrl}/auth/register'); // Replace with your API endpoint
+    final url = Uri.parse('${ApiUrl.baseUrl}auth/register'); // Replace with your API endpoint
 
     try {
       setLoading(true);

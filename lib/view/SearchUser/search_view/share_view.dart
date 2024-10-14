@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meettown/res/components/post_cart.dart';
+import 'package:meettown/view/SearchUser/search_view/location_view/user_profile_view.dart';
 import 'package:provider/provider.dart';
 
 import '../../../modelView/Filter/search_match_by_interest_controller.dart';
@@ -33,6 +34,7 @@ class _ShareViewState extends State<ShareView> {
         final imgUrl = endPoint+imgBaseUrl!;
         print(imgUrl);
         return PostCart(
+          profile:userProfile,
             name: userProfile.userData!.authId!.firstName?? 'null' ,
             distance: userProfile.distanceKm,
             gender: userProfile.userData!.authId!.gender?? 'null' ,

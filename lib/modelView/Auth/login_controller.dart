@@ -130,6 +130,11 @@ class LoginController extends ChangeNotifier {
         // Convert the response to LoginResponse
         LoginResponse loginResponse = LoginResponse.fromJson(responseData);
 
+        UserId=responseData["data"]["UserData"]["_id"];
+        UserName=responseData["data"]["UserData"]["firstName"];
+        image=responseData["data"]["UserData"]["profileId"]["profileImage"]["file"];
+        
+
         print(responseData);
         login(context);
       } else if (response.statusCode == 400) {

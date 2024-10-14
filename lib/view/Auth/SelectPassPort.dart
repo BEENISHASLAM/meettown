@@ -323,6 +323,60 @@ setState(() {
                   }).toList(),
                     dropdownColor: Color(0xff5a584b),
                 ),
+ SizedBox(height: 20),
+                Text(
+                  'Select Intersets:',
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
+                SizedBox(height: 10),
+                 Container(
+                  height: 250,
+            child:  GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3, // Number of buttons per row
+                childAspectRatio: 2.5, // Button aspect ratio
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+              ),
+              itemCount: controller.interests.length,
+              itemBuilder: (context, index) {
+                bool isSelected = controller.selectedInterests.contains(controller.interests[index]);
+                return GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      if (isSelected) {
+                        controller.selectedInterests.remove(controller.interests[index]);
+                      } else {
+                       controller. selectedInterests.add(controller.interests[index]);
+                      }
+                    });
+                  },
+                  child: Container(
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: isSelected ? appColors.textBlueColor : Colors.grey[300],
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Center(
+                        child: Text(
+                          controller.interests[index],
+                          style: TextStyle(
+                            color: isSelected ? Colors.white : Colors.black,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
               
                      Column(
                       children: [

@@ -54,10 +54,11 @@ class AuthView extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
+                  SizedBox(),
                   CustomButtonWidget(
                       title: 'SIGN IN',
                       foregroundColor: appColors.buttonTextSelectedPrimaryColor,
-                      bgColor: appColors.appBgColor,
+                      bgColor: appColors.textBlueColor,
                       selectedFgButtonColor: appColors.buttonTextPrimaryColor,
                       onpress: () {
                         Navigator.push(
@@ -72,7 +73,7 @@ class AuthView extends StatelessWidget {
                   CustomButtonWidget(
                       title: 'SIGN UP',
                       foregroundColor: appColors.buttonTextSelectedPrimaryColor,
-                      bgColor: appColors.appBgColor,
+                       bgColor: appColors.textBlueColor,
                       selectedFgButtonColor: appColors.buttonTextPrimaryColor,
                       onpress: () {
                         Navigator.push(
@@ -84,6 +85,8 @@ class AuthView extends StatelessWidget {
                         // isLogin.value = false;
                         // value.setAuthSignStatus();
                       }),
+                  SizedBox(),
+
                 ],
               ),
               // const SizedBox(
