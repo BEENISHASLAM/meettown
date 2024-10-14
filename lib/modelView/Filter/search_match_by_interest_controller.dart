@@ -1,27 +1,35 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:meettown/res/shard_preferences.dart';
 import '../../model/Serach_user_by_match_interest.dart';
+import '../../res/shard_preferences.dart';
 
-class SearchUserByInterestController extends ChangeNotifier {
-  bool loading = false;
-  SharedPreference preference = SharedPreference();
-  List<Data>? userProfilesList = [];// Keep this as List<Data>
+class SearchUserByInterestController extends GetxController {
+  final SharedPreference preference = SharedPreference();
 
+  // Reactive variables
+  var loading = false.obs;
+  var userProfilesList = <Data>[].obs; // Reactive List
+
+  // Function to set loading state
   void setLoading(bool val) {
-    loading = val;
-    notifyListeners();
+    loading.value = val;
   }
 
+  // Function to fetch users by matching interest
   Future<void> fetchUserByMatchInterest() async {
     setLoading(true);
+    userProfilesList.clear();
     final token = await preference.getToken();
     var headers = {
-      'token': '$token'
+      'token': '$token',
     };
 
-    var request = http.Request('GET', Uri.parse('https://meet-town-3f191b8f46d2.herokuapp.com/api/user/match-interset-by-users'));
+    var request = http.Request(
+      'GET',
+      Uri.parse('https://meet-town-3f191b8f46d2.herokuapp.com/api/user/match-interset-by-users'),
+    );
     request.headers.addAll(headers);
 
     try {
@@ -31,7 +39,7 @@ class SearchUserByInterestController extends ChangeNotifier {
         final responseData = await response.stream.bytesToString();
         final GetUserByMatch jsonResponse = GetUserByMatch.fromJson(json.decode(responseData));
         print(responseData);
-        userProfilesList = jsonResponse.data;
+        userProfilesList.value = jsonResponse.data!; // Update reactive list
       } else {
         print(response.reasonPhrase);
       }
@@ -42,7 +50,3 @@ class SearchUserByInterestController extends ChangeNotifier {
     }
   }
 }
-
-
-
-

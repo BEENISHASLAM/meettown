@@ -41,8 +41,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => CompletedProfileController()),
         ChangeNotifierProvider(create: (_) => ContactModel()),
         ChangeNotifierProvider(create: (_) => OTpController()),
-        ChangeNotifierProvider(create: (_) => SearchUserByInterestController()),
-        ChangeNotifierProvider(create: (_) => CardSwipeController()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -114,8 +114,6 @@ class _SearchUserPageState extends State<SearchUserPage> {
                 LocationView(),
                 SwipeExample(),
                 ShareView(),
-                // PersonView(),
-                // TripSearchView(),
                 CurrentLocationView(),
               ],
             )),
