@@ -28,7 +28,7 @@ class _ContactViewState extends State<ContactView> {
                     color: Colors.black,
                   )),
               title: Text(
-                'Contact',
+                'Request',
                 style: TextStyle(color: Colors.black),
               )),
           body: Column(
@@ -49,25 +49,19 @@ class _ContactViewState extends State<ContactView> {
                     labelColor: Colors.black,
                     indicator: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.grey,
-                            blurRadius: 5,
-                            spreadRadius: 5,
-                            offset: Offset(3, 0))
-                      ],
+                      boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 5, spreadRadius: 5, offset: Offset(3, 0))],
                       color: Colors.white,
                     ),
                     tabs: [
                       Tab(
-                        text: 'Match',
+                        text: 'Send',
                         // icon: Icon(
                         //   Icons.directions_walk_outlined,
                         //   size: 30,
                         // ),
                       ),
                       Tab(
-                        text: 'Interest in me',
+                        text: 'Recieved',
                         // icon: Icon(
                         //   Icons.airplane_ticket,
                         //   color: Colors.lightBlue,
@@ -75,7 +69,7 @@ class _ContactViewState extends State<ContactView> {
                         // ),
                       ),
                       Tab(
-                        text: 'My likes',
+                        text: 'Friends',
                         // icon: Icon(
                         //   Icons.shopping_bag,
                         //   color: Colors.lightGreen,

@@ -52,7 +52,7 @@ class CardSwipeController extends GetxController {
   }
 
   // Function to send request
-  Future<void> sendRequest(String? id) async {
+  Future<void> sendRequest(String? id, index) async {
     final token = await prefs.getToken();
     var headers = {
       'token': '$token',
@@ -74,6 +74,7 @@ class CardSwipeController extends GetxController {
     if (response.statusCode == 200) {
       print(await response.stream.bytesToString());
       print("hello");
+      userProfilesList.removeAt(index);
     } else {
       print(response.reasonPhrase);
     }

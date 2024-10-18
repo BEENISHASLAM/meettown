@@ -77,53 +77,55 @@ class _SwipeExampleState extends State<SwipeExample> {
                   ),
                 ),
               )
-            : controller.userProfilesList!.isEmpty
+            : controller.userProfilesList.value.isEmpty
                 ? Center(child: Text('No profiles available'))
-                : Container(
-                    margin: EdgeInsets.symmetric(horizontal: 10),
-                    height: 650,
-                    child: CardSwiper(
-                      cardsCount: controller.userProfilesList!.length,
-                      cardBuilder: (context, index, x, y) {
-                        final userProfile = controller.userProfilesList![index];
-                        final imgBaseUrl = userProfile.profileImage?.file;
-                        if (imgBaseUrl == null) {
-                          return ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Center(child: Text('Image not available')),
-                          );
-                        }
+                : controller.userProfilesList.value.length == 1
+                    ? Center(child: Text('No profiles available'))
+                    : Container(
+                        margin: EdgeInsets.symmetric(horizontal: 10),
+                        height: 650,
+                        child: CardSwiper(
+                          cardsCount: controller.userProfilesList!.length,
+                          cardBuilder: (context, index, x, y) {
+                            final userProfile = controller.userProfilesList![index];
+                            final imgBaseUrl = userProfile.profileImage?.file;
+                            if (imgBaseUrl == null) {
+                              return ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: Center(child: Text('Image not available')),
+                              );
+                            }
 
-                        final endPoint = 'https://res.cloudinary.com/dkfgfnbst/image/upload/';
-                        final imgUrl = endPoint + imgBaseUrl;
-                        print(imgUrl);
+                            final endPoint = 'https://res.cloudinary.com/dkfgfnbst/image/upload/';
+                            final imgUrl = endPoint + imgBaseUrl;
+                            print(imgUrl);
 
-                        return ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: Image.network(
-                            imgUrl,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) {
-                              return Center(child: Text('Image not available'));
-                            },
-                          ),
-                        );
-                      },
-                      onSwipe: (prevoius, current, direction) {
-                        currentindex = current!;
-                        final userProfile = controller.userProfilesList![current];
-                        final id = userProfile.sId;
-                        // getColor();
-                        if (direction == CardSwiperDirection.top) {
-                          Fluttertoast.showToast(msg: '🔥 Send Request', backgroundColor: const Color.fromARGB(255, 84, 2, 2), fontSize: 28);
-                          controller.sendRequest(id);
-                        } else if (direction == CardSwiperDirection.bottom) {
-                          Fluttertoast.showToast(msg: '😖 Reject Request', backgroundColor: const Color.fromARGB(255, 38, 1, 1), fontSize: 28);
-                        }
-                        return true;
-                      },
-                    ),
-                  ),
+                            return ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Image.network(
+                                imgUrl,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) {
+                                  return Center(child: Text('Image not available'));
+                                },
+                              ),
+                            );
+                          },
+                          onSwipe: (prevoius, current, direction) {
+                            currentindex = current!;
+                            final userProfile = controller.userProfilesList![current];
+                            final id = userProfile.sId;
+                            // getColor();
+                            if (direction == CardSwiperDirection.top || direction == CardSwiperDirection.left) {
+                              Fluttertoast.showToast(msg: '🔥 Send Request', backgroundColor: const Color.fromARGB(255, 84, 2, 2), fontSize: 28);
+                              controller.sendRequest(id, currentindex);
+                            } else if (direction == CardSwiperDirection.bottom || direction == CardSwiperDirection.right) {
+                              Fluttertoast.showToast(msg: '😖 Reject Request', backgroundColor: const Color.fromARGB(255, 38, 1, 1), fontSize: 28);
+                            }
+                            return true;
+                          },
+                        ),
+                      ),
       ),
     );
   }
