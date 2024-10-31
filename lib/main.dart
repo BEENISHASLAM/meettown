@@ -1,23 +1,20 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:meettown/modelView/Auth/Dashboard/home_controller.dart';
 import 'package:meettown/modelView/Auth/auth_controller.dart';
 import 'package:meettown/modelView/Auth/completed_profile_controller.dart';
 import 'package:meettown/modelView/Auth/login_controller.dart';
 import 'package:meettown/modelView/Auth/otp_controller.dart';
 import 'package:meettown/modelView/Auth/sign_up_controller.dart';
-import 'package:meettown/modelView/Filter/search_match_by_interest_controller.dart';
 import 'package:meettown/modelView/Filter/trip_filter_controller.dart';
 import 'package:meettown/modelView/Services/splash_controller.dart';
-import 'package:meettown/res/user_profile.dart';
+
 import 'package:meettown/view/splash_view.dart';
 import '../../res/appcolors.dart';
 import 'package:provider/provider.dart';
 
 import 'modelView/Auth/password_visibility_controller.dart';
-import 'modelView/Filter/cardSwip_controller.dart';
-import 'modelView/Filter/location_controller.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

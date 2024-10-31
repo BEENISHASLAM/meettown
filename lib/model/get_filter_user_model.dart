@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_question_mark
+
 class GetFilterUser {
   bool? status;
   List<Data>? data;

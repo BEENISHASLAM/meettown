@@ -211,7 +211,7 @@ class _UserAboutViewState extends State<UserAboutView> {
   }
 }
 
-// ignore: must_be_immutable
+
 class SimpleBoldText extends StatelessWidget {
   String title;
   Color color;

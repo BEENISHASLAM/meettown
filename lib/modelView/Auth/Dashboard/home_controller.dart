@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -7,8 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:meettown/Response/Response.dart';
+import 'package:meettown/modelView/api_url/api_url.dart';
 import 'package:meettown/res/global.dart';
 import 'package:http/http.dart' as http;
 import 'package:meettown/res/shard_preferences.dart';
@@ -22,6 +25,8 @@ class HomeController extends GetxController {
   var postData = [];
   var userPostUpdate = [];
   final TextEditingController postController = TextEditingController();
+  SharedPreference preference = SharedPreference();
+
 
   setLoading(val) {
     loading = val;
@@ -59,6 +64,36 @@ class HomeController extends GetxController {
     //   print('No data available.');
     // }
     // setPost(event.value);
+
+
+  var postUserList = [];
+  setLoading(true);
+  final token = await preference.getToken();
+  var responseJson;
+
+  Map<String,String> headers = {
+    'token': token.toString(), // Replace with your actual token
+  };
+
+  try {
+    final response = await http.get(
+      Uri.parse('${ApiUrl.baseUrl}post/get-all-posts'),
+      headers: headers,
+    );
+
+   
+      responseJson = returnResponse(response);
+      print(responseJson["data"]);
+      setPost(responseJson["data"], responseJson["data"]);
+       
+    
+  
+  } catch (e) {
+    print("Error: $e");
+  } finally {
+    setLoading(false);
+  }
+
   }
 
   Future<void> uploadPost(context, String text, File? imageFile) async {

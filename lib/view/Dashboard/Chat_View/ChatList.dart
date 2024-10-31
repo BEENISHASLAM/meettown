@@ -8,11 +8,11 @@ class ChatListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chats'),
+        title: Text('Chats',style: TextStyle(color: Colors.white),),
         centerTitle: true,
         backgroundColor: appColors.textBlueColor,
       ),
-      drawer: MyDrawer(),
+      // drawer: MyDrawer(),
       body: ListView.builder(
         itemCount: 10, // Replace with the actual number of users
         itemBuilder: (context, index) {

@@ -1,14 +1,14 @@
-import 'dart:convert';
+
+// ignore_for_file: unused_local_variable, deprecated_member_use
+
 import 'dart:io';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:meettown/model/login_model.dart';
 import 'package:meettown/modelView/api_url/api_url.dart';
 import 'package:meettown/res/global.dart';
-import 'package:meettown/res/shard_preferences.dart';
 import 'package:meettown/view/Dashboard/home.dart';
 import 'package:http/http.dart' as http;
 import 'package:nb_utils/nb_utils.dart';

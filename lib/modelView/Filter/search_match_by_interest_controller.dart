@@ -17,6 +17,35 @@ class SearchUserByInterestController extends GetxController {
     loading.value = val;
   }
 
+  Future<void> sendRequest(String? id, index) async {
+    final token = await preference.getToken();
+    var headers = {
+      'token': '$token',
+      'Content-Type': 'application/json',
+    };
+    var request = http.Request(
+      'POST',
+      Uri.parse('https://meet-town-3f191b8f46d2.herokuapp.com/api/user/send-request'),
+    );
+
+    request.body = json.encode({
+      "receiverId": "$id",
+      "requestType": "follow",
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+      print("hello");
+      userProfilesList.removeAt(index);
+    } else {
+      print(response.reasonPhrase);
+    }
+  }
+
+
   // Function to fetch users by matching interest
   Future<void> fetchUserByMatchInterest() async {
     setLoading(true);

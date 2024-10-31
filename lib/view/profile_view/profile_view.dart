@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:meettown/Controller/FetchCurrentUseController.dart';
 import 'package:meettown/modelView/api_url/api_url.dart';
 import 'package:meettown/res/appcolors.dart';
+import 'package:meettown/view/Dashboard/Chat_View/ChatList.dart';
 import 'package:meettown/view/profile_view/about_view/about_view.dart';
 import 'package:meettown/view/profile_view/activities_view/activities_view.dart';
 import 'package:meettown/view/profile_view/photo_view/photo_view.dart';
@@ -27,7 +28,7 @@ class _ProfileViewState extends State<ProfileView> {
   
   @override
   void initState() {
-    // TODO: implement initState
+  
     super.initState();
     getUserProfile();
   }
@@ -242,7 +243,9 @@ class _ProfileViewState extends State<ProfileView> {
                                       children: [
                                         SizedBox(width: 10),
                                           ElevatedButton.icon(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Get.to(ChatListScreen());
+                                  },
                                   icon: Icon(Icons.message),
                                   label: Text("Chat With User"),
                                   style: ElevatedButton.styleFrom(

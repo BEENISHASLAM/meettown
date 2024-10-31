@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:meettown/view/contact_view/interest_me_view/interest_me.dart';
 import 'package:meettown/view/contact_view/match_view/match_view.dart';
-import 'package:meettown/view/contact_view/my_likes_view/my_likes_view.dart';
+import 'package:meettown/view/contact_view/my_likes_view/MyFriendsList.dart';
 
 class ContactView extends StatefulWidget {
   const ContactView({super.key});
@@ -80,9 +80,9 @@ class _ContactViewState extends State<ContactView> {
               ),
               Expanded(
                 child: TabBarView(children: [
-                  MatchView(),
-                  InterestedMe(),
-                  MyLikesView(),
+                  SendRequestList(),
+                  RecieveRequest(),
+                  MyFriendsList(),
                 ]),
               ),
             ],

@@ -17,7 +17,7 @@ class _CurrentLocationViewState extends State<CurrentLocationView> {
 
   @override
   void initState() {
-    // TODO: implement initState
+  
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       controller.fetchUserByMatchInterest();
