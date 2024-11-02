@@ -99,10 +99,10 @@ class ProfileActivites extends StatelessWidget {
                   fontSize: 16),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
-            child: Text('celibataire'),
-          ),
+          // Padding(
+          //   padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
+          //   child: Text('celibataire'),
+          // ),
           Divider(),
           ButtonBar(
             alignment: MainAxisAlignment.spaceBetween,

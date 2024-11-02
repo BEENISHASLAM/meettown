@@ -7,15 +7,13 @@ import 'package:get/get.dart';
 import 'package:meettown/modelView/api_url/api_url.dart';
 import 'package:meettown/res/global.dart';
 import 'package:meettown/view/BottomNavbar/BottomNavbar.dart';
-import 'package:meettown/view/Dashboard/home.dart';
-import 'package:provider/provider.dart';
+
 
 import '../../model/login_model.dart';
-import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import '../../res/shard_preferences.dart';
-import '../../res/user_profile.dart';
+
 
 class LoginController extends ChangeNotifier {
   final SharedPreference prefs = SharedPreference();
@@ -96,7 +94,7 @@ class LoginController extends ChangeNotifier {
 
       Get.snackbar(
         "Error",
-        e.toString()!, // Display the error message
+        e.toString(), // Display the error message
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.white,
       );
@@ -129,6 +127,11 @@ class LoginController extends ChangeNotifier {
         SharedPreference().SetToken(responseData["data"]["token"]);
         // Convert the response to LoginResponse
         LoginResponse loginResponse = LoginResponse.fromJson(responseData);
+
+        UserId=responseData["data"]["UserData"]["_id"];
+        UserName=responseData["data"]["UserData"]["firstName"];
+        image=responseData["data"]["UserData"]["profileId"]["profileImage"]["file"];
+        
 
         print(responseData);
         login(context);

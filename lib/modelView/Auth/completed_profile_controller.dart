@@ -1,4 +1,6 @@
-import 'dart:convert';
+
+// ignore_for_file: unused_local_variable, deprecated_member_use
+
 import 'dart:io';
 
 import 'package:firebase_database/firebase_database.dart';
@@ -13,18 +15,50 @@ import 'package:nb_utils/nb_utils.dart';
 
 import '../../view/BottomNavbar/BottomNavbar.dart';
 
-
-
 class CompletedProfileController extends ChangeNotifier {
   //store data
-double? latitude;
-double? longitude;
-late File?  newImage;
+  double? latitude;
+  double? longitude;
+  late File? newImage;
+  List<String> selectedInterests = [];
 
   late File _image;
   var loading = false;
   File get image => _image;
 
+  final List<String> interests = [
+    'Technology',
+    'Music',
+    'Sports',
+    'Reading',
+    'Traveling',
+    'Movies',
+    'Cooking',
+    'Fitness',
+    'Software Development',
+    'Graphic Design',
+    'Data Science',
+    'Project Management',
+    'Marketing',
+    'Business Analysis',
+    'Networking',
+    'Artificial Intelligence',
+    'UI/UX Design',
+    'Cybersecurity',
+    'Cloud Computing',
+    'Digital Marketing',
+    'Entrepreneurship',
+    'Public Speaking',
+    'Leadership',
+    'Financial Planning',
+    'Human Resources',
+    'Accounting',
+    'Law',
+    'Content Writing',
+    'Photography',
+    'Consulting',
+    'Education & Teaching',
+  ];
   List<String> educationOptions = [
     'No formal education',
     'Primary education',
@@ -51,8 +85,7 @@ late File?  newImage;
     'Professional Connections'
   ];
 
-
-   List<String> heightOptions = [
+  List<String> heightOptions = [
     'Below 4 feet',
     '4 feet 0 inches',
     '4 feet 1 inch',
@@ -413,75 +446,83 @@ late File?  newImage;
     'Event Planner',
   ];
 
-
   void setImage(File image) {
     _image = image;
     notifyListeners();
   }
 
-  setLoading(val){
-    loading=val;
+  setLoading(val) {
+    loading = val;
     notifyListeners();
-
   }
-
-
 
   Future<String?> _getToken() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString('auth_token');
   }
 
-   Future<void> createProfile(context,language,profession,nationalalty,relationship,education,lookingFor) async {
-   setLoading(true);
-     final token = await _getToken();
-     var headers = {
-       'token': '$token'
-     };
-     print("beenish");
-     print(newImage!.path);
-     var request = http.MultipartRequest('POST', Uri.parse('${ApiUrl.baseUrl}auth/create-profile'));
-     request.fields.addAll({
-       'language':language,
-       'professional':profession,
-       'nationality': nationalalty,
-       'relationShip':relationship,
-       'education': education,
-       'longitude':longitude.toString(),
-       'latitude':latitude.toString(),
-       'lookingFor':lookingFor
-     });
-     request.files.add(await http.MultipartFile.fromPath('profileImage',newImage!.path));
-     request.headers.addAll(headers);
+  Future<void> createProfile(context, language, profession, nationalalty,
+      relationship, education, lookingFor) async {
+    setLoading(true);
+    final token = await _getToken();
+    var headers = {'token': '$token'};
+    print("beenish");
+    print(newImage!.path);
+    var request = http.MultipartRequest(
+        'POST', Uri.parse('${ApiUrl.baseUrl}auth/create-profile'));
 
-     http.StreamedResponse response = await request.send();
-     if (response.statusCode == 200) {
-       print(await response.stream.bytesToString());
-       print(response.statusCode);
-       setLoading(false);
-       Get.snackbar("Success", " Profile created  Successfully");
+    request.fields['language'] = language;
+    request.fields['professional'] = profession;
+    request.fields['nationality'] = nationalalty;
+    request.fields['relationShip'] = relationship;
+    request.fields['education'] = education;
+    request.fields['longitude'] = longitude.toString();
+    request.fields['latitude'] = latitude.toString();
+    request.fields['lookingFor'] = lookingFor;
 
-      // Get.offAll(Dashboard());
+    for (var i = 0; i < selectedInterests.length; i++) {
+      request.fields['interests[${i}]'] = selectedInterests[i];
+    }
 
-         Navigator.push(context, MaterialPageRoute(builder: (_) => CustomNavbar()));
+    // Send the interests as multiple fields
 
+    request.files
+        .add(await http.MultipartFile.fromPath('profileImage', newImage!.path));
+    request.headers.addAll(headers);
 
-     }
-     else {
-       print(response.reasonPhrase);
-     }
-   setLoading(false);
+    http.StreamedResponse response = await request.send();
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+      print(response.statusCode);
+      setLoading(false);
+      Get.snackbar("Success", " Profile created  Successfully");
 
+      //  final responseData = jsonDecode(response.body);
+
+      //   SharedPreference().SetToken(responseData["data"]["token"]);
+      //   // Convert the response to LoginResponse
+      //   LoginResponse loginResponse = LoginResponse.fromJson(responseData);
+
+      //  UserId=responseData["data"]["UserData"]["_id"];
+      // UserName=responseData["data"]["UserData"]["firstName"];
+      // image=responseData["data"]["UserData"]["profileId"]["profileImage"]["file"];
+
+      Get.offAll(CustomNavbar());
+
+      //  Navigator.push(context, MaterialPageRoute(builder: (_) => CustomNavbar()));
+    } else {
+      print(await response.stream.bytesToString());
+      print(response.reasonPhrase);
+    }
+    setLoading(false);
   }
-
 
   //this is for location
-  setLocation(lat, long){
+  setLocation(lat, long) {
     print(long);
-
   }
-  setLatLong(context,lat,long)  {
-   
+
+  setLatLong(context, lat, long) {
     //   DatabaseReference databaseReference =
     //       FirebaseDatabase.instance.reference();
     // var res = await  databaseReference.child('users').child(UserId).update({
@@ -492,38 +533,35 @@ late File?  newImage;
     //
     //   Get.snackbar("Success", "Location Store Successfully");
     // Navigator.push(context,MaterialPageRoute(builder: (context) => PassportPage()));
-
-
   }
 
-  storeOtherInfoDb(context,language,profession,nationalalty,relationship,education) async {
+  storeOtherInfoDb(context, language, profession, nationalalty, relationship,
+      education) async {
     print(language);
-     DatabaseReference databaseReference =
-          FirebaseDatabase.instance.reference();
-      setLoading(true);
+    DatabaseReference databaseReference = FirebaseDatabase.instance.reference();
+    setLoading(true);
 
-    var res = await  databaseReference.child('users').child(UserId).update({
- "langauge" : language,
- "profession":profession,
- "nationalalty":nationalalty,
- "relationship":relationship,
- "education":education
-      });
-         setLoading(false);
+    var res = await databaseReference.child('users').child(UserId).update({
+      "langauge": language,
+      "profession": profession,
+      "nationalalty": nationalalty,
+      "relationship": relationship,
+      "education": education
+    });
+    setLoading(false);
 
-       
-      Get.snackbar("Success", "Update Profile  Successfully");
-   
+    Get.snackbar("Success", "Update Profile  Successfully");
+
     // Navigator.push(context,MaterialPageRoute(builder: (context) => Dashboard()));
     Get.offAll(Dashboard());
-
   }
 
-  getProfileImage(context,image) async{
+  getProfileImage(context, image) async {
     print(image);
   }
-  StoreImageDb(context,_image) {
-    var res =  uploadFile(_image);
+
+  StoreImageDb(context, _image) {
+    var res = uploadFile(_image);
     // try {
     //   DatabaseReference databaseReference =
     //       FirebaseDatabase.instance.reference();
@@ -547,11 +585,7 @@ late File?  newImage;
     return downloadUrl;
   }
 
-void login(BuildContext context) {
-  Navigator.push(context, MaterialPageRoute(builder: (_) => CustomNavbar()));
+  void login(BuildContext context) {
+    Navigator.push(context, MaterialPageRoute(builder: (_) => CustomNavbar()));
+  }
 }
-
-}
-
-
-

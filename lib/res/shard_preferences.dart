@@ -12,4 +12,9 @@ class SharedPreference {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('auth_token', val);
   }
+ Future<String?> SetPrefence(key,val) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(key, val);
+  }
+  
 }

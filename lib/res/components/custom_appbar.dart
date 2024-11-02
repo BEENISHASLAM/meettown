@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:meettown/modelView/api_url/api_url.dart';
 import 'package:meettown/res/appcolors.dart';
+import 'package:meettown/res/global.dart';
 import 'package:meettown/view/contact_view/contact_view.dart';
 import 'package:meettown/view/profile_view/profile_view.dart';
 
@@ -24,8 +26,9 @@ class CustomAppBar extends StatelessWidget {
             },
             child: CachedNetworkImage(
               imageUrl:
-                  'https://img.freepik.com/free-photo/close-up-contemplated-handsome-young-man-purple-polo-neck-t-shirt_23-2148130395.jpg?w=360&t=st=1711732160~exp=1711732760~hmac=288cc3e978bceecf7c3f8c1d70fa73281daadc7a15dda734110a24a0ed542b9c',
-              imageBuilder: (context, imageProvider) => CircleAvatar(
+              ApiUrl.imageUrl+image,
+
+                                imageBuilder: (context, imageProvider) => CircleAvatar(
                 backgroundImage: imageProvider,
                 radius: 20,
               ),
@@ -72,8 +75,8 @@ class CustomAppBar extends StatelessWidget {
 
 // ignore: must_be_immutable
 class CustomImageAppBar extends StatelessWidget {
-  String image;
-  CustomImageAppBar({super.key, required this.image});
+  String image1;
+  CustomImageAppBar({super.key, required this.image1});
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +90,7 @@ class CustomImageAppBar extends StatelessWidget {
             },
             child: CachedNetworkImage(
               imageUrl:
-                  'https://img.freepik.com/free-photo/close-up-contemplated-handsome-young-man-purple-polo-neck-t-shirt_23-2148130395.jpg?w=360&t=st=1711732160~exp=1711732760~hmac=288cc3e978bceecf7c3f8c1d70fa73281daadc7a15dda734110a24a0ed542b9c',
+              ApiUrl.imageUrl+image,
               imageBuilder: (context, imageProvider) => CircleAvatar(
                 backgroundImage: imageProvider,
                 radius: 20,
@@ -109,14 +112,14 @@ class CustomImageAppBar extends StatelessWidget {
             ),
           )),
       centerTitle: true,
-      title:   image.toString().contains("https") ?  Image(
+      title:   image1.toString().contains("https") ?  Image(
         image: NetworkImage(
-          image.toString(),
+          image1.toString(),
         ),
         // color: Colors.blue,
       ):Image(
         image: AssetImage(
-          image.toString(),
+          image1.toString(),
         ),
         color: Colors.blue,
       ),

@@ -7,19 +7,20 @@ import 'package:meettown/modelView/api_url/api_url.dart';
 import 'package:meettown/res/appcolors.dart';
 import 'package:meettown/view/SearchUser/search_view/location_view/user_about_view.dart';
 import 'package:meettown/view/SearchUser/search_view/location_view/user_photo_iew.dart';
+import 'package:meettown/view/message_view/message_view.dart';
 import 'package:meettown/view/profile_view/activities_view/activities_view.dart';
 import 'package:meettown/view/profile_view/own_trip_view/own_trip_view.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-class UserProfileView extends StatefulWidget {
+class FriendProfileView extends StatefulWidget {
   var profile;
-  UserProfileView({super.key, this.profile});
+  FriendProfileView({super.key, this.profile});
 
   @override
-  State<UserProfileView> createState() => _UserProfileViewState();
+  State<FriendProfileView> createState() => _FriendProfileViewState();
 }
 
-class _UserProfileViewState extends State<UserProfileView> {
+class _FriendProfileViewState extends State<FriendProfileView> {
   bool _showAppBar = true;
   var userController = Get.put(UserProfileController());
 
@@ -31,7 +32,7 @@ class _UserProfileViewState extends State<UserProfileView> {
   }
 
   getUserProfile() async {
-    await userController.fetchUserProfileDetails(widget.profile.sId);
+    await userController.fetchUserProfileDetails(widget.profile["sId"]);
 
   }
 
@@ -71,7 +72,7 @@ class _UserProfileViewState extends State<UserProfileView> {
                           ),
                         ),
                         Text(
-                          "User Profile",
+                          "Friend Profile",
                           style: TextStyle(color: Colors.white, fontSize: 20),
                         ),
                         CircleAvatar(
@@ -156,8 +157,9 @@ class _UserProfileViewState extends State<UserProfileView> {
                                       Container(
                                         height: 50,
                                         child: Text(
-                                          widget.profile.nationality.toString(),
-                                          style: TextStyle(color: Colors.white70, fontSize: 16),
+                                          ""
+                                          // widget.profile.nationality.toString(),
+                                          // style: TextStyle(color: Colors.white70, fontSize: 16),
                                         ),
                                       ),
                                       SizedBox(height: 25),
@@ -176,10 +178,7 @@ class _UserProfileViewState extends State<UserProfileView> {
                                         color: Colors.white,
                                       ),
                                     ),
-                                    Text(
-                                      widget.profile.nationality.toString(),
-                                      style: TextStyle(color: Colors.white70, fontSize: 16),
-                                    ),
+                                   
                                     SizedBox(height: 25),
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.start,
@@ -188,13 +187,12 @@ class _UserProfileViewState extends State<UserProfileView> {
                                         userController.sendRequestLoading.value==false? 
                                         ElevatedButton(
                                           onPressed: () {
-                                            userController.sendRequest(userController.userProfiles.value.first.sId.toString());
-                                            print(userController.userProfiles.value.first);
+                                           Get.to(MessageView());
 
                                           },
-                                          child: Icon(Icons.favorite),
+                                          child: Icon(Icons.chat),
                                           style: ElevatedButton.styleFrom(
-                                            foregroundColor: Colors.red,
+                                            foregroundColor: const Color.fromARGB(255, 57, 244, 54),
                                             backgroundColor: Colors.white,
                                             shape: CircleBorder(),
                                             padding: EdgeInsets.all(12),

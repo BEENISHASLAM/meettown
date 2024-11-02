@@ -1,9 +1,21 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:meettown/Controller/FetchCurrentUseController.dart';
+import 'package:meettown/Controller/getUserController.dart';
+import 'package:meettown/modelView/api_url/api_url.dart';
 import 'package:meettown/res/appcolors.dart';
 
-class PhotoView extends StatelessWidget {
+class PhotoView extends StatefulWidget {
   const PhotoView({super.key});
+
+  @override
+  State<PhotoView> createState() => _PhotoViewState();
+}
+
+class _PhotoViewState extends State<PhotoView> {
+
+  var userController = Get.put(CurrentUserProfileController());
 
   @override
   Widget build(BuildContext context) {
@@ -22,30 +34,13 @@ class PhotoView extends StatelessWidget {
             ),
             Row(
               children: [
-                CircleAvatar(
-                  backgroundColor: appColors.textBlueColor,
-                  radius: 40,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.camera_alt,
-                        color: Colors.white,
-                      ),
-                      Text(
-                        'add',
-                        style: TextStyle(color: Colors.white),
-                      )
-                    ],
-                  ),
-                ),
+               
                 SizedBox(width: 16,),
                 Stack(
                   children: [
                     CachedNetworkImage(
                       imageUrl:
-                          'https://img.freepik.com/free-photo/close-up-contemplated-handsome-young-man-purple-polo-neck-t-shirt_23-2148130395.jpg?w=360&t=st=1711732160~exp=1711732760~hmac=288cc3e978bceecf7c3f8c1d70fa73281daadc7a15dda734110a24a0ed542b9c',
+                            ApiUrl.imageUrl + userController.userProfiles.value.first.profileImage.file,
                       imageBuilder: (context, imageProvider) => CircleAvatar(
                         backgroundImage: imageProvider,
                         radius: 40,

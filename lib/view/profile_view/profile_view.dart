@@ -1,11 +1,16 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:meettown/Controller/FetchCurrentUseController.dart';
+import 'package:meettown/modelView/api_url/api_url.dart';
 import 'package:meettown/res/appcolors.dart';
+import 'package:meettown/view/Dashboard/Chat_View/ChatList.dart';
 import 'package:meettown/view/profile_view/about_view/about_view.dart';
 import 'package:meettown/view/profile_view/activities_view/activities_view.dart';
 import 'package:meettown/view/profile_view/photo_view/photo_view.dart';
 import 'package:meettown/view/profile_view/own_trip_view/own_trip_view.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class ProfileView extends StatefulWidget {
   var name;
@@ -17,6 +22,21 @@ class ProfileView extends StatefulWidget {
 
 class _ProfileViewState extends State<ProfileView> {
   bool _showAppBar = true;
+
+  var CurrentUserProfile =Get.put(CurrentUserProfileController());
+
+  
+  @override
+  void initState() {
+  
+    super.initState();
+    getUserProfile();
+  }
+
+  getUserProfile() async {
+    await CurrentUserProfile.fetchCurrentUserProfileDetails();
+    // print(userController.userProfiles.first);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,53 +99,155 @@ class _ProfileViewState extends State<ProfileView> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                            height: 150,
-                            width: 100,
-                            padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                  width: 5,
-                                  color: Color.fromARGB(255, 252, 248, 248),
-                                ),
-                                boxShadow: [BoxShadow(color: Colors.red)],
-                                image: DecorationImage(
-                                    image: NetworkImage(
-                                      'https://img.freepik.com/free-photo/close-up-contemplated-handsome-young-man-purple-polo-neck-t-shirt_23-2148130395.jpg?w=360&t=st=1711732160~exp=1711732760~hmac=288cc3e978bceecf7c3f8c1d70fa73281daadc7a15dda734110a24a0ed542b9c',
-                                      //'$fullImageUrl',
-                                    ),
-                                    fit: BoxFit.cover),
-                                borderRadius: BorderRadius.circular(10)),
-                            child: null),
+                         Obx(() {
+                          return CurrentUserProfile.isLoading.value
+                              ? Skeletonizer(
+                                  enabled: CurrentUserProfile.isLoading.value,
+                                  effect: ShimmerEffect(
+                                    highlightColor: Colors.white,
+                                    baseColor: Color.fromARGB(255, 178, 178, 178),
+                                  ),
+                                  child: Container(
+                                      height: 150,
+                                      width: 100,
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                            width: 5,
+                                            color: Color.fromARGB(255, 252, 248, 248),
+                                          ),
+                                          boxShadow: [BoxShadow(color: const Color.fromARGB(255, 178, 177, 177))],
+                                          image: DecorationImage(
+                                              image: NetworkImage(
+                                                'https://global.discourse-cdn.com/bubble/original/3X/1/2/12e944afd917d123319c9074a7e72581785a3b38.png',
+                                                //'$fullImageUrl',
+                                              ),
+                                              fit: BoxFit.cover),
+                                          borderRadius: BorderRadius.circular(10)),
+                                      child: null),
+                                )
+                              : Container(
+                                  height: 150,
+                                  width: 100,
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                        width: 5,
+                                        color: Color.fromARGB(255, 252, 248, 248),
+                                      ),
+                                      boxShadow: [BoxShadow(color: const Color.fromARGB(255, 178, 177, 177))],
+                                      image: DecorationImage(
+                                          image: NetworkImage(
+                                            ApiUrl.imageUrl + CurrentUserProfile.userProfiles.value.first.profileImage.file,
+                                            //'$fullImageUrl',
+                                          ),
+                                          fit: BoxFit.cover),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: null);
+                        }),
                         SizedBox(
                           width: 15,
                         ),
                         SizedBox(height: 10),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              // widget.name == null ||widget.name=="" ?  "Samantha Doe":widget.name,
-                              "Samantha Doesasas",
-                              style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                            Text(
-                              'nationality',
-                              style: TextStyle(color: Colors.white70, fontSize: 16),
-                            ),
-                            SizedBox(height: 25),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                ElevatedButton.icon(
-                                  onPressed: () {},
+                        // Column(
+                        //   mainAxisAlignment: MainAxisAlignment.start,
+                        //   crossAxisAlignment: CrossAxisAlignment.start,
+                        //   children: [
+                        //     Text(
+                        //       // widget.name == null ||widget.name=="" ?  "Samantha Doe":widget.name,
+                        //       "Samantha Doesasas",
+                        //       style: TextStyle(
+                        //         fontSize: 24,
+                        //         fontWeight: FontWeight.bold,
+                        //         color: Colors.white,
+                        //       ),
+                        //     ),
+                        //     Text(
+                        //       'nationality',
+                        //       style: TextStyle(color: Colors.white70, fontSize: 16),
+                        //     ),
+                        //     SizedBox(height: 25),
+                        //     Row(
+                        //       mainAxisAlignment: MainAxisAlignment.start,
+                        //       children: [
+                        //         ElevatedButton.icon(
+                        //           onPressed: () {},
+                        //           icon: Icon(Icons.message),
+                        //           label: Text("Message"),
+                        //           style: ElevatedButton.styleFrom(
+                        //             side: BorderSide(color: Colors.green, width: 2),
+                        //             // shape: StadiumBorder(),
+                        //             backgroundColor: Colors.white,
+                        //             foregroundColor: Colors.green,
+                        //             shape: RoundedRectangleBorder(
+                        //               borderRadius: BorderRadius.circular(10), // Border radius
+                        //             ),
+                        //           ),
+                        //         ),
+                        //         SizedBox(width: 10),
+                        //         ElevatedButton(
+                        //           onPressed: () {},
+                        //           child: Icon(Icons.favorite),
+                        //           style: ElevatedButton.styleFrom(
+                        //             foregroundColor: Colors.red,
+                        //             backgroundColor: Colors.white,
+                        //             shape: CircleBorder(),
+                        //             padding: EdgeInsets.all(12),
+                        //           ),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ],
+                        // ),
+                        Obx(() {
+                          return CurrentUserProfile.isLoading.value
+                              ? Skeletonizer(
+                                  enabled: CurrentUserProfile.isLoading.value,
+                                  effect: ShimmerEffect(
+                                    highlightColor: Colors.white,
+                                    baseColor: Color.fromARGB(255, 178, 178, 178),
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        height: 50,
+                                        child: Text(
+                                       "jdhasdjh",
+                                          style: TextStyle(color: Colors.white70, fontSize: 16),
+                                        ),
+                                      ),
+                                      SizedBox(height: 25),
+                                    ],
+                                  ))
+                              : Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                         CurrentUserProfile.userProfiles.first.authId.firstName.toString(),
+                                      style: TextStyle(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    Text(
+                                       CurrentUserProfile.userProfiles.first.nationality.toString(),
+                                      style: TextStyle(color: Colors.white70, fontSize: 16),
+                                    ),
+                                    SizedBox(height: 25),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        SizedBox(width: 10),
+                                          ElevatedButton.icon(
+                                  onPressed: () {
+                                    Get.to(ChatListScreen());
+                                  },
                                   icon: Icon(Icons.message),
-                                  label: Text("Message"),
+                                  label: Text("Chat With User"),
                                   style: ElevatedButton.styleFrom(
                                     side: BorderSide(color: Colors.green, width: 2),
                                     // shape: StadiumBorder(),
@@ -136,21 +258,11 @@ class _ProfileViewState extends State<ProfileView> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(width: 10),
-                                ElevatedButton(
-                                  onPressed: () {},
-                                  child: Icon(Icons.favorite),
-                                  style: ElevatedButton.styleFrom(
-                                    foregroundColor: Colors.red,
-                                    backgroundColor: Colors.white,
-                                    shape: CircleBorder(),
-                                    padding: EdgeInsets.all(12),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                                      ],
+                                    ),
+                                  ],
+                                );
+                        }),
                       ],
                     ),
                   ),

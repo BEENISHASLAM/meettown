@@ -75,7 +75,8 @@ class _UserAboutViewState extends State<UserAboutView> {
                                     )),
                                 SizedBox(width: 8),
                                 Text(
-                                  'Socialising',
+                                  userController.userProfiles.value.first.lookingFor.toString(),
+
                                   style: TextStyle(fontSize: 16),
                                 ),
                               ],
@@ -210,7 +211,7 @@ class _UserAboutViewState extends State<UserAboutView> {
   }
 }
 
-// ignore: must_be_immutable
+
 class SimpleBoldText extends StatelessWidget {
   String title;
   Color color;
