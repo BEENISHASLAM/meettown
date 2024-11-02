@@ -21,7 +21,7 @@ class LocationController extends GetxController {
     final token = await preference.getToken();
 
     var headers = {
-      'token': '$token', // Replace with your actual token
+      'token': '$token',
     };
 
     var request = http.Request('GET', Uri.parse('https://meet-town-3f191b8f46d2.herokuapp.com/api/user/location-by-users'));

@@ -39,7 +39,7 @@ class _LocationViewState extends State<LocationView> {
                   mainAxisExtent: 170,
                   crossAxisCount: 3,
                 ),
-                itemCount: 10, // // Use actual userProfiles length
+                itemCount: 10,
                 itemBuilder: (BuildContext context, int index) {
                   return LocationCartLoading(
                       userImage:
@@ -57,7 +57,7 @@ class _LocationViewState extends State<LocationView> {
                 mainAxisExtent: 170,
                 crossAxisCount: 3,
               ),
-              itemCount: locationController.userProfiles?.length ?? 0, // // Use actual userProfiles length
+              itemCount: locationController.userProfiles?.length ?? 0,
               itemBuilder: (BuildContext context, int index) {
                 final userProfile = locationController.userProfiles![index];
                 final user = userProfile.user;
